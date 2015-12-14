@@ -5,6 +5,8 @@ authors = ["Stefan Dietrich<Stefl1504@gmx-topmail.de>",
            "Josko Nikolic<josko.nikolic1@gmail.com>"]
 
 [dependencies]
+toml = "0.1"
+rustc-serialize = "0.3"
 
 [[bin]]
 name = "eirc"

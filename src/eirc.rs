@@ -1,4 +1,5 @@
 #[macro_use] extern crate log;
+extern crate mio;
 extern crate toml;
 extern crate env_logger;
 extern crate rustc_serialize;

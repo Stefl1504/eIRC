@@ -6,6 +6,7 @@ authors = ["Stefan Dietrich<Stefl1504@gmx-topmail.de>",
 
 [dependencies]
 log = "0.3"
+mio = "0.5"
 toml = "0.1"
 env_logger = "0.3.2"
 rustc-serialize = "0.3"

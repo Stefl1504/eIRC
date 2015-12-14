@@ -1,0 +1,10 @@
+[package]
+name = "eIRC"
+version = "0.0.1"
+authors = ["Stefl1504<fill.this.up@gmx.de>",
+           "Josko Nikolic<josko.nikolic1@gmail.com>"]
+
+[dependencies]
+
+[[bin]]
+name = "eirc"

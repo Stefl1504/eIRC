@@ -1,7 +1,7 @@
 [package]
 name = "eIRC"
 version = "0.0.1"
-authors = ["Stefl1504@gmx-topmail.de>",
+authors = ["Stefan Dietrich<Stefl1504@gmx-topmail.de>",
            "Josko Nikolic<josko.nikolic1@gmail.com>"]
 
 [dependencies]

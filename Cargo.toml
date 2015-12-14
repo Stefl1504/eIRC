@@ -5,7 +5,9 @@ authors = ["Stefan Dietrich<Stefl1504@gmx-topmail.de>",
            "Josko Nikolic<josko.nikolic1@gmail.com>"]
 
 [dependencies]
+log = "0.3"
 toml = "0.1"
+env_logger = "0.3.2"
 rustc-serialize = "0.3"
 
 [[bin]]

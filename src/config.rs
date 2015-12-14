@@ -21,6 +21,18 @@ pub struct ServerConfig  {
     /// The port we connect to
     pub port: u16,
 
+    /// The nickname the bot assumes
+    pub nickname: String,
+
+    /// The username the bot assumes
+    pub username: String,
+
+    /// The real name the bot assumes
+    pub realname: String,
+
+    /// The password used to register on the network
+    pub password: String,
+
     /// Channels the bot is located in on startup
     pub channels: Vec<String>
 }
@@ -30,6 +42,10 @@ impl ServerConfig {
         ServerConfig {
             hostname: "irc.rizon.net".to_string(),
             port: 6667,
+            nickname: "eIRC-bot".to_string(),
+            username: "eIRC-bot".to_string(),
+            realname: "eIRC-bot".to_string(),
+            password: String::new(),
             channels: vec!["#eirc".to_string()]
         }
     }

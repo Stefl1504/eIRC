@@ -14,7 +14,7 @@ fn main() {
     info!("Starting the application");
 
     let mut args = env::args();
-    let config_file_name = args.nth(1).unwrap();
+    let config_file_name = args.nth(1).unwrap_or("eirc.toml".to_string());
     let config = Config::parse(config_file_name);
 
     info!("Exiting the application");

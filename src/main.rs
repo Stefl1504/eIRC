@@ -18,5 +18,10 @@ fn main() {
     let config_file_name = args.nth(1).unwrap_or("eirc.toml".to_string());
     let config = Config::parse(config_file_name);
 
+    let addr = format!("{}:{}", config.server.hostname, config.server.port).parse().unwrap();
+    let tcp_stream = tcp::TcpStream::connect(&addr).unwrap();
+
+
+
     info!("Exiting the application");
 }

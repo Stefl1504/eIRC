@@ -102,7 +102,7 @@ impl Irc
         // top kek this line
         match TcpStream::connect(&format!("{}:{}", self.config.server.hostname, self.config.server.port)[..]) {
             Ok(mut tcp_stream) => {
-                println!("Connected");
+                info!("Connected");
                 self.connected = true;
 
                 let mut stream = BufStream::new(&tcp_stream);
@@ -114,7 +114,7 @@ impl Irc
 
                 while stream.read_line(&mut buffer).unwrap() > 0 {
                     let message = IrcMessage::new(&buffer);
-                    print!(">> {}", message.raw_message);
+                    info!(">> {}", message.raw_message);
 
                     if message.command == "PING" {
                         let mut reply = String::from("PONG :");
@@ -145,7 +145,7 @@ fn send_raw_message<W: Write>(w: &mut W, msg: &String) -> Result<(), Error> {
 
     try!(w.write(message.as_bytes()));
     w.flush();
-    println!("<< {}", msg);
+    info!("<< {}", msg);
 
     Ok(())
 }

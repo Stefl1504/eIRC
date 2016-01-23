@@ -6,7 +6,7 @@ use toml;
 /// Config holds global static configuration
 /// Once read from disk, it is distributed to all threads as an immutable structure
 #[derive(RustcEncodable, RustcDecodable, Debug)]
-pub struct Config  {
+pub struct Config {
 
     /// The configurations related to networking
     pub server: ServerConfig,
@@ -14,7 +14,7 @@ pub struct Config  {
 
 /// The configurations related to networking
 #[derive(RustcEncodable, RustcDecodable, Debug)]
-pub struct ServerConfig  {
+pub struct ServerConfig {
     /// The hostname we connect to
     pub hostname: String,
 

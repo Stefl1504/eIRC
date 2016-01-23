@@ -1,13 +1,15 @@
 #[macro_use] extern crate log;
-extern crate mio;
 extern crate toml;
+extern crate bufstream;
 extern crate env_logger;
 extern crate rustc_serialize;
 
+mod irc;
 mod config;
 
 use std::env;
 use config::Config;
+use irc::Irc;
 
 fn main() {
     env_logger::init().unwrap();
@@ -18,10 +20,8 @@ fn main() {
     let config_file_name = args.nth(1).unwrap_or("eirc.toml".to_string());
     let config = Config::parse(config_file_name);
 
-    let addr = format!("{}:{}", config.server.hostname, config.server.port).parse().unwrap();
-    let tcp_stream = tcp::TcpStream::connect(&addr).unwrap();
-
-
+    let mut irc = Irc::new(config);
+    irc.run();
 
     info!("Exiting the application");
 }

@@ -1,11 +1,15 @@
 use std::io::prelude::*;
-use std::io::BufReader;
 use std::io::Error;
 use std::net::TcpStream;
 use std::str::FromStr;
-use std::fmt;
+use std::fs;
+use std::fs::FileType;
+use std::fs::DirEntry;
+use std::path::Path;
 
 use bufstream::BufStream;
+use shared_library::*;
+use libc::c_int;
 
 use config::Config;
 
@@ -60,7 +64,6 @@ impl IrcMessage {
 
                 if !raw.contains(' ') {
                     parameters.push(String::from(raw));
-                    raw = "";
                     break;
                 }
                 let space_index = match raw.find(' ') {
@@ -87,6 +90,10 @@ impl Substring for str {
     }
 }
 
+shared_library!(IrcPlugin,
+    pub fn command() -> c_int,
+);
+
 impl Irc
 {
     pub fn new(config: Config) -> Irc
@@ -99,9 +106,26 @@ impl Irc
     {
         self.connected = false;
 
+        let paths = fs::read_dir("./").unwrap();
+
+        for path in paths {
+            let path_unwrapped = path.unwrap();
+
+            match path_unwrapped.path().extension() {
+                Some(name) => if name.to_str().unwrap() != "dll" && name.to_str().unwrap() != "so" { continue; },
+                None => continue
+            }
+
+            info!("Found plugin {}", path_unwrapped.path().display());
+
+            let test = IrcPlugin::open(path_unwrapped.path().as_path()).unwrap();
+
+            unsafe { (test.command)(); }
+        }
+
         // top kek this line
         match TcpStream::connect(&format!("{}:{}", self.config.server.hostname, self.config.server.port)[..]) {
-            Ok(mut tcp_stream) => {
+            Ok(tcp_stream) => {
                 info!("Connected");
                 self.connected = true;
 
@@ -141,10 +165,10 @@ impl Irc
 }
 
 fn send_raw_message<W: Write>(w: &mut W, msg: &String) -> Result<(), Error> {
-    let mut message = format!("{}\r\n", msg);
-
+    let message = format!("{}\r\n", msg);
     try!(w.write(message.as_bytes()));
     w.flush();
+
     info!("<< {}", msg.trim());
 
     Ok(())

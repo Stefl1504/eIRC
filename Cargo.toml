@@ -7,9 +7,11 @@ authors = ["Stefan Dietrich<Stefl1504@gmx-topmail.de>",
 [dependencies]
 log = "0.3"
 toml = "0.1"
+libc = "0.2.2"
+bufstream = "0.1.1"
 env_logger = "0.3.2"
 rustc-serialize = "0.3"
-bufstream = "0.1.1"
+shared_library = "0.1.2"
 
 [[bin]]
 name = "eirc"

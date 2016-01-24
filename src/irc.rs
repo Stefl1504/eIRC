@@ -114,7 +114,7 @@ impl Irc
 
                 while stream.read_line(&mut buffer).unwrap() > 0 {
                     let message = IrcMessage::new(&buffer);
-                    info!(">> {}", message.raw_message);
+                    info!(">> {}", message.raw_message.trim());
 
                     if message.command == "PING" {
                         let mut reply = String::from("PONG :");
@@ -145,7 +145,7 @@ fn send_raw_message<W: Write>(w: &mut W, msg: &String) -> Result<(), Error> {
 
     try!(w.write(message.as_bytes()));
     w.flush();
-    info!("<< {}", msg);
+    info!("<< {}", msg.trim());
 
     Ok(())
 }
